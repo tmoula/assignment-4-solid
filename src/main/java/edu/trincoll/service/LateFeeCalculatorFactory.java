@@ -1,29 +1,29 @@
 package edu.trincoll.service;
 
-import com.example.library.model.MembershipType;
+//Edited by Taha
+import edu.trincoll.model.MembershipType;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class LateFeeCalculatorFactory {
 
-    private final Map<MembershipType, LateFeeCalculator> strategies;
+    private final RegularLateFeeCalculator regularLateFeeCalculator;
+    private final PremiumLateFeeCalculator premiumLateFeeCalculator;
+    private final StudentLateFeeCalculator studentLateFeeCalculator;
 
-    public LateFeeCalculatorFactory(
-            LateFeeCalculator regularLateFeeCalculator,
-            LateFeeCalculator premiumLateFeeCalculator,
-            LateFeeCalculator studentLateFeeCalculator
-    ) {
-        // Construct a small map. Uses the Component names above or type injection ordering.
-        this.strategies = Map.of(
-            MembershipType.REGULAR, regularLateFeeCalculator,
-            MembershipType.PREMIUM, premiumLateFeeCalculator,
-            MembershipType.STUDENT, studentLateFeeCalculator
-        );
+    public LateFeeCalculatorFactory(RegularLateFeeCalculator regularLateFeeCalculator,
+                                    PremiumLateFeeCalculator premiumLateFeeCalculator,
+                                    StudentLateFeeCalculator studentLateFeeCalculator) {
+        this.regularLateFeeCalculator = regularLateFeeCalculator;
+        this.premiumLateFeeCalculator = premiumLateFeeCalculator;
+        this.studentLateFeeCalculator = studentLateFeeCalculator;
     }
 
     public LateFeeCalculator getCalculatorFor(MembershipType membershipType) {
-        return strategies.getOrDefault(membershipType, strategies.get(MembershipType.REGULAR));
+        return switch (membershipType) {
+            case REGULAR -> regularLateFeeCalculator;
+            case PREMIUM -> premiumLateFeeCalculator;
+            case STUDENT -> studentLateFeeCalculator;
+        };
     }
 }

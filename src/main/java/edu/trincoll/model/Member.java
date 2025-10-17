@@ -41,7 +41,7 @@ public class Member {
         this.email = email;
     }
 
-    public Member(String name, String email, MembershipType membershipType) {
+    public Member(String name, MembershipType membershipType) {
         this.name = name;
         this.email = email;
         this.membershipType = membershipType;
@@ -117,5 +117,8 @@ public class Member {
                 ", email='" + email + '\'' +
                 ", membershipType=" + membershipType +
                 '}';
+    }
+
+    public void setStatus(String active) {
     }
 }

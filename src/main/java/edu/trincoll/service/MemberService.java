@@ -1,7 +1,8 @@
+//Edited By Taha
 package edu.trincoll.service;
 
-import com.trincoll.library.model.Member;
-import com.trincoll.library.repository.MemberRepository;
+import edu.trincoll.model.Member;
+import edu.trincoll.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,10 +46,9 @@ public class MemberService {
     public boolean isValid(Member member) {
         if (member == null) return false;
         if (member.getId() == null) return false;
-        if (member.getStatus() == null) return false;
-        // add more validation rules as necessary
         return true;
     }
+
 
     @Transactional
     public Member save(Member member) {
