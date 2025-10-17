@@ -1,10 +1,18 @@
 package edu.trincoll.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "books")
@@ -137,4 +145,12 @@ public class Book {
                 ", status=" + status +
                 '}';
     }
+    public boolean isAvailable() {
+    return this.status == BookStatus.AVAILABLE;
+}
+
+public void setAvailable(boolean available) {
+    this.status = available ? BookStatus.AVAILABLE : BookStatus.CHECKED_OUT;
+}
+
 }
